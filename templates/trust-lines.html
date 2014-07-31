@@ -1,0 +1,20 @@
+<section class="column-title">
+    <h3>Trust lines</h3>
+</section>
+<section class="column-content">
+    <h5 ng-show="!account_lines.length" class="no-data">No trust lines</h5>
+    <table ng-show="account_lines.length">
+          <tbody>
+              <tr>
+                  <th>Currency</th>
+                  <th>Balance</th>
+                  <th>Issuer</th>
+              </tr>
+              <tr ng-repeat="line in account_lines track by $index">
+                  <td>{{ line.currency }}</td>
+                  <td class="trust-balance" ng-class="balanceClass(line.balance)" highlight-changes="line.balance">{{ line.balance | toFinancial }}</td>
+                  <td class="query-address" ng-click="queryAddress(line.account)">{{ line.account }}</td>
+              </tr>
+        </tbody>
+    </table>
+</section>

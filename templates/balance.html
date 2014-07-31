@@ -1,0 +1,12 @@
+<section class="column-title">
+      <h3>Balance</h3>
+</section>
+<section class="column-content">
+    <section ng-repeat="currency in balanceCurrencies" class="balance-currency"
+             ng-class="balanceClass(balances[currency])">
+        <dl>
+            <dt highlight-changes="balances[currency]">{{ balances[currency] | toFinancial }}</dt>
+            <dd>{{ currency }}</dd>
+        </dl>
+    </section>
+</section>

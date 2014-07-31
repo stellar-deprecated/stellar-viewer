@@ -1,0 +1,30 @@
+<section class="column-title">
+    <h3>Offers</h3>
+</section>
+<section class="column-content">
+    <h5 ng-show="!account_lines.length" class="no-data">No offers</h5>
+    <table ng-show="account_lines.length">
+        <tbody>
+            <tr>
+                <th>Sell</th>
+                <th>Buy</th>
+                <th>Price</th>
+            </tr>
+            <tr ng-repeat="offer in account_offers">
+                <td>
+                    <div>{{ sellValue(offer) }} {{ sellCurrency(offer) }}</div>
+                    <div class="offer-issuer query-address" ng-click="queryAddress(offer.taker_gets.issuer)" title="Issued by {{ offer.taker_gets.issuer || 'Stellar' }}">
+                        {{ offer.taker_gets.issuer || 'Stellar' }}
+                    </div>
+                </td>
+                <td>
+                    <div>{{ buyCurrency(offer) }}</div>
+                    <div class="offer-issuer query-address" ng-click="queryAddress(offer.taker_pays.issuer)" title="Issued by {{ offer.taker_pays.issuer || 'Stellar' }}">
+                        {{ offer.taker_pays.issuer || 'Stellar' }}
+                    </div>
+                </td>
+                <td>{{ price(offer) }}</td>
+            </tr>
+        </tbody>
+    </table>
+</section>

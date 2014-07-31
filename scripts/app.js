@@ -1,0 +1,1 @@
+var stellarExplorer = angular.module('stellarExplorer', []);
