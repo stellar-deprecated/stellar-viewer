@@ -2,14 +2,14 @@ stellarExplorer.controller('appController', function($scope, $q, requestHelper, 
   var websocketProtocol = location.protocol == 'https:' ? 'wss:' : 'ws:';
 
   $scope.testConfig = {
-    network: websocketProtocol + '//public-01-stg.stellar.org:9001',
+    network: websocketProtocol + '//test.stellar.org:9001',
     txt: 'stellar-stg.stellar.org',
     domain: 'stg.stellar.org',
     rootAddress: 'ganVp9o5emfzpwrG5QVUXqMv8AgLcdvySb'
   };
 
   $scope.liveConfig = {
-    network: websocketProtocol + '//public-01.stellar.org:9001',
+    network: websocketProtocol + '//live.stellar.org:9001',
     txt: 'stellar.stellar.org',
     domain: 'stellar.org',
     rootAddress: 'ganVp9o5emfzpwrG5QVUXqMv8AgLcdvySb'
