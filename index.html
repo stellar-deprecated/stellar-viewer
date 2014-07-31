@@ -41,8 +41,8 @@
             <form>
                 <!-- IMPORTANT: inputs are whitespace sensitive -->
                 <label class="network-label">Network:</label>
-                <input type="button" ng-click="useTestConfig()" ng-class="{disabled: config == testConfig}" name="Test" title="Test" value="Test"><!--
-                --><input type="button" ng-click="useLiveConfig()" ng-class="{disabled: config == liveConfig}"  name="Live" title="Live" value="Live">
+                <input type="button" ng-click="useTestConfig()" ng-class="{selected: config == testConfig}" name="Test" title="Test" value="Test"><!--
+                --><input type="button" ng-click="useLiveConfig()" ng-class="{selected: config == liveConfig}"  name="Live" title="Live" value="Live">
             </form>
         </div>
     </section>
