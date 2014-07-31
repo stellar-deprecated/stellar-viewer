@@ -28,3 +28,6 @@ http-server
 ```
 
 Open up http://localhost:8080 in your browser.
+
+## License
+Stellar Viewer is open source and permissively licensed under the ISC license. See the LICENSE file for more details.
