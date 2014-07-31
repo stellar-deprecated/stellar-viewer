@@ -1,0 +1,216 @@
+/* These are some styles taken from the stellar.org website */
+/* These styles are just meant as a light styling and is in no way a comprehensive styling */
+
+*, *:before, *:after {
+  -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box;
+ }
+
+body,
+button,
+input,
+select,
+textarea {
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-size: 16px;
+}
+
+td {
+    padding: .5em;
+}
+
+section.search-bar {
+  max-width: 980px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 1.25em 0;
+}
+section.search-bar:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+section.search-bar input {
+  margin-right: 0.625em;
+}
+section.search-bar input[type="text"] {
+  max-width: 470px;
+  width: 100%;
+}
+
+section.explorer-row {
+  max-width: 980px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 2.7em;
+}
+section.explorer-row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+section.explorer-row table {
+  margin-bottom: 2.68em;
+}
+
+section.main-title {
+  max-width: 980px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 1em;
+  margin-top: 2.25em;
+}
+section.main-title:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+section.main-title h2 {
+  color: #9b9b9b;
+  font-weight: 300;
+  margin-bottom: 0;
+}
+section.main-title h2 strong {
+  color: #5b6a72;
+  font-weight: 300;
+}
+
+section.column-title {
+  float: left;
+  display: block;
+  margin-right: 2.35765%;
+  width: 31.76157%;
+}
+section.column-title:last-child {
+  margin-right: 0;
+}
+
+section.column-content {
+  float: left;
+  display: block;
+  margin-right: 2.35765%;
+  width: 65.88078%;
+}
+section.column-content:last-child {
+  margin-right: 0;
+}
+
+section.balance-currency {
+  float: left;
+  display: block;
+  margin-right: 2.35765%;
+  width: 48.82117%;
+  margin-right: 0;
+  padding: 0 1em;
+  margin-bottom: 3em;
+  font-weight: 700;
+}
+section.balance-currency:last-child {
+  margin-right: 0;
+}
+section.balance-currency dt {
+  margin-bottom: 0;
+  line-height: 1;
+  text-align: center;
+}
+section.balance-currency dd {
+  text-align: center;
+  text-rendering: optimizeLegibility;
+  color: #9fabb1;
+  margin: 0;
+}
+
+section.balance-currency.balance-large {
+  float: left;
+  display: block;
+  margin-right: 2.35765%;
+  width: 100%;
+}
+section.balance-currency.balance-large:last-child {
+  margin-right: 0;
+}
+
+section.balance-currency.negative dt {
+  color: #d41b32;
+}
+
+@media only screen and (max-width: 864px) {
+    section.column-title {
+    float: left;
+    display: block;
+    margin-right: 2.35765%;
+    width: 100%;
+  }
+    section.column-title:last-child {
+    margin-right: 0;
+  }
+
+    section.column-content {
+    float: left;
+    display: block;
+    margin-right: 2.35765%;
+    width: 100%;
+  }
+    section.column-content:last-child {
+    margin-right: 0;
+  }
+}
+@media only screen and (max-width: 672px) {
+    #explorer-search-form input {
+    width: 100%;
+    max-width: none;
+    margin-top: .625em;
+  }
+    #explorer-search-form input:first-child {
+    margin-top: 0;
+  }
+}
+@media only screen and (max-width: 512px) {
+    section.balance-currency {
+    float: left;
+    display: block;
+    margin-right: 2.35765%;
+    width: 100%;
+  }
+    section.balance-currency:last-child {
+    margin-right: 0;
+  }
+    section.balance-currency dt {
+    font-size: 32px;
+  }
+}
+.network-label {
+  margin-right: 10px;
+}
+.no-data {
+  color: #9fabb1;
+}
+.trust-balance.negative {
+  color: #d41b32;
+}
+.offer-issuer {
+  font-size: 12px;
+  color: #9fabb1;
+}
+.query-address {
+  cursor: pointer;
+  -webkit-transition: color 200ms ease-in-out;
+  transition: color 200ms ease-in-out;
+}
+
+.query-address {
+  color: #08b5e5;
+}
+.query-address:hover {
+  color: #068eb4;
+}
+.balance-currency dt,
+.trust-balance {
+  -webkit-transition: color 1000ms ease-in-out;
+  transition: color 1000ms ease-in-out;
+}
+.balance-currency dt.fresh,
+.trust-balance.fresh {
+  -webkit-transition: none;
+  transition: none;
+  color: #08b5e5 !important;
+}
