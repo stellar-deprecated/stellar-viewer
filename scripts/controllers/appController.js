@@ -18,11 +18,12 @@ stellarExplorer.controller('appController', function($scope, $q, requestHelper, 
   var connection = null;
 
   $scope.reset = function() {
-    $scope.config = $scope.testConfig;
+    $scope.config = $scope.liveConfig;
 
     updateQueryFromHash(true);
 
     $scope.queryValid = true;
+    $scope.emptyQuery = true;
     $scope.lastQuery = '';
     $scope.address = '';
 
@@ -33,20 +34,34 @@ stellarExplorer.controller('appController', function($scope, $q, requestHelper, 
     $scope.balances = {};
     $scope.balanceCurrencies = [];
 
-    connect(true);
+    connect();
   }
 
   function updateQueryFromHash(initialUpdate) {
-    if (location.hash.substr(2) == $scope.query) {
+    // Make sure that we don't have to do any work if we don't have to
+    if ((
+         // Continue if we are not changing networks
+         (location.hash.substr(0,2) == '#/' && $scope.config == $scope.liveConfig) ||
+         (location.hash.substr(0,6) == '#test/' && $scope.config == $scope.testConfig) ||
+         (location.hash.substr(0,6) == '#live/' && $scope.config == $scope.liveConfig)
+        )
+        && (location.hash == '#/' + $scope.query ||
+            location.hash == '#test/' + $scope.query ||
+            location.hash == '#live/' + $scope.query)) {
       return;
     }
 
     if (location.hash == '#/') {
-      $scope.query = $scope.config.rootAddress;
+      $scope.query = '';
     } else if (location.hash.substr(0,2) == '#/') {
       $scope.query = location.hash.substr(2);
-    } else if (initialUpdate == true) {
-      $scope.query = $scope.config.rootAddress;
+      setTimeout(function() {$scope.useLiveConfig();}, 0); // This error comes up without setTimeout: TypeError: Cannot read property 'close' of null
+    } else if (location.hash.substr(0,6) == '#test/') {
+      $scope.query = location.hash.substr(6);
+      setTimeout(function() {$scope.useTestConfig();}, 0);
+    } else if (location.hash.substr(0,6) == '#live/') {
+      $scope.query = location.hash.substr(6);
+      setTimeout(function() {$scope.useLiveConfig();}, 0);
     } else {
       $scope.query = '';
     }
@@ -59,16 +74,18 @@ stellarExplorer.controller('appController', function($scope, $q, requestHelper, 
   $scope.useTestConfig = function() {
     if ($scope.config == $scope.testConfig) return;
     $scope.config = $scope.testConfig;
+    $scope.updateHash(false); // #/address
     connection.close();
   };
 
   $scope.useLiveConfig = function() {
     if ($scope.config == $scope.liveConfig) return;
     $scope.config = $scope.liveConfig;
+    $scope.updateHash(false); // #live/address
     connection.close();
   };
 
-  function connect(initialUpdate) {
+  function connect() {
     $scope.loading = true;
 
     connection = new WebSocket($scope.config.network);
@@ -77,7 +94,7 @@ stellarExplorer.controller('appController', function($scope, $q, requestHelper, 
       requestHelper.useConnection(connection);
 
       $scope.$apply(function() {
-        $scope.updateAccountData(true, initialUpdate);
+        $scope.updateAccountData(true, true);
       });
     };
 
@@ -95,6 +112,16 @@ stellarExplorer.controller('appController', function($scope, $q, requestHelper, 
     $scope.updateAccountData();
   };
 
+  $scope.updateHash = function(initialUpdate) {
+    if (!initialUpdate) {
+      if ($scope.config == $scope.liveConfig) {
+        location.hash = '#live/' + $scope.query;
+      } else {
+        location.hash = '#test/' + $scope.query;
+      }
+    }
+  }
+
   $scope.updateAccountData = function(silent, initialUpdate) {
     if (!silent) {
       $scope.loading = true;
@@ -107,15 +134,23 @@ stellarExplorer.controller('appController', function($scope, $q, requestHelper, 
       $scope.balanceCurrencies = [];
     }
 
-    if (!initialUpdate) {
-      location.hash = '#/' + $scope.query;
+    if (initialUpdate && $scope.query == '') { // Don't fetch a blank account if the page is being loaded with a blank account
+      $scope.loading = false;
+      $scope.queryValid = false;
+      return;
     }
+
+    $scope.emptyQuery = false; // Make result visible
+
+    $scope.updateHash(initialUpdate);
     
     requestHelper.unsubscribeTransactions($scope.address);
 
     resolveQuery().then(function() { $scope.requestAccountData(silent); });
 
-    requestHelper.subscribeTransactions($scope.address);
+    requestHelper.subscribeTransactions($scope.address); 
+
+    
   }
 
   $scope.requestAccountData = function() {

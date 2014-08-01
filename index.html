@@ -26,65 +26,65 @@
 </head>
 
 <body ng-controller="appController"
-<div class="border-wrapper">
-    <section class="search-bar">
-        <div id="explorer-search-form">
-            <form>
-                <!-- IMPORTANT: inputs are whitespace sensitive -->
-                <input type="text" ng-model="query"><!--
-                --><input type="submit" ng-click="updateAccountData()" name="search" title="Search" value="Search">
-            </form>
-        </div>
-    </section>
-</div>
-<div class="border-wrapper">
-    <section class="search-bar">
-        <div id="explorer-search-form">
-            <form>
-                <!-- IMPORTANT: inputs are whitespace sensitive -->
-                <label class="network-label">Network:</label>
-                <input type="button" ng-click="useTestConfig()" ng-class="{selected: config == testConfig}" name="Test" title="Test" value="Test"><!--
-                --><input type="button" ng-click="useLiveConfig()" ng-class="{selected: config == liveConfig}"  name="Live" title="Live" value="Live">
-            </form>
-        </div>
-    </section>
-</div>
-<div ng-show="loading">
     <div class="border-wrapper">
-        <section class="main-title">
-            <h2>Loading...</h2>
+        <section class="search-bar">
+            <div id="explorer-search-form">
+                <form>
+                    <!-- IMPORTANT: inputs are whitespace sensitive -->
+                    <input type="text" ng-model="query"><!--
+                    --><input type="submit" ng-click="updateAccountData()" name="search" title="Search" value="Search">
+                </form>
+            </div>
         </section>
     </div>
-</div>
-<div ng-hide="loading">
-    <div ng-show="queryValid">
-        <div>
+    <div class="border-wrapper">
+        <section class="search-bar">
+            <div id="explorer-search-form">
+                <form>
+                    <!-- IMPORTANT: inputs are whitespace sensitive -->
+                    <label class="network-label">Network:</label>
+                    <input type="button" ng-click="useLiveConfig()" ng-class="{selected: config == liveConfig}"  name="Live" title="Live" value="Live"><!--
+                    --><input type="button" ng-click="useTestConfig()" ng-class="{selected: config == testConfig}" name="Test" title="Test" value="Test">
+                </form>
+            </div>
+        </section>
+    </div>
+    <div ng-show="loading">
+        <div class="border-wrapper">
             <section class="main-title">
-                <h2>Search results for: <strong>{{ lastQuery }}</strong></h2>
-                <h2 ng-show="address && lastQuery != address">Address: <strong>{{ address }}</strong></h2>
-            </section>
-        </div>
-        <div class="border-wrapper">
-            <section class="explorer-row">
-                <balance></balance>
-            </section>
-        </div>
-        <div class="border-wrapper">
-            <section class="explorer-row">
-                <trust-lines></trust-lines>
-            </section>
-        </div>
-        <div class="border-wrapper">
-            <section class="explorer-row">
-                <offers></offers>
+                <h2>Loading...</h2>
             </section>
         </div>
     </div>
-    <div ng-hide="queryValid">
-        <section class="main-title">
-            <h2>No results for <strong>{{ lastQuery }}</strong></h2>
-        </section>
+    <div ng-hide="loading">
+        <div ng-show="queryValid && !emptyQuery">
+            <div>
+                <section class="main-title">
+                    <h2>Search results for: <strong>{{ lastQuery }}</strong></h2>
+                    <h2 ng-show="address && lastQuery != address">Address: <strong>{{ address }}</strong></h2>
+                </section>
+            </div>
+            <div class="border-wrapper">
+                <section class="explorer-row">
+                    <balance></balance>
+                </section>
+            </div>
+            <div class="border-wrapper">
+                <section class="explorer-row">
+                    <trust-lines></trust-lines>
+                </section>
+            </div>
+            <div class="border-wrapper">
+                <section class="explorer-row">
+                    <offers></offers>
+                </section>
+            </div>
+        </div>
+        <div ng-hide="queryValid || emptyQuery">
+            <section class="main-title">
+                <h2>No results for <strong>{{ lastQuery }}</strong></h2>
+            </section>
+        </div>
     </div>
-</div>
 </body>
 </html>
