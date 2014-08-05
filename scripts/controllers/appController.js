@@ -3,13 +3,11 @@ stellarExplorer.controller('appController', function($scope, $q, requestHelper, 
 
   $scope.testConfig = {
     network: websocketProtocol + '//test.stellar.org:9001',
-    txt: 'stellar-stg.stellar.org',
     domain: 'stg.stellar.org'
   };
 
   $scope.liveConfig = {
     network: websocketProtocol + '//live.stellar.org:9001',
-    txt: 'stellar.stellar.org',
     domain: 'stellar.org'
   };
 
@@ -187,7 +185,7 @@ stellarExplorer.controller('appController', function($scope, $q, requestHelper, 
     if (validAddress) {
       $scope.address = $scope.query;
 
-      reverseFederation.check_address($scope.address, $scope.config.txt, $scope.config.domain)
+      reverseFederation.check_address($scope.address, $scope.config.domain)
         .then(function (result) {
           $scope.lastQuery = result.destination + '@' + result.domain;
           deferred.resolve();
@@ -196,7 +194,7 @@ stellarExplorer.controller('appController', function($scope, $q, requestHelper, 
           deferred.resolve();
         });
     } else {
-      federation.check_email($scope.query, $scope.config.txt, $scope.config.domain)
+      federation.check_email($scope.query, $scope.config.domain)
         .then(function (result) {
           $scope.lastQuery = result.destination + '@' + result.domain;
           $scope.address = result.destination_address;
