@@ -4,15 +4,13 @@ stellarExplorer.controller('appController', function($scope, $q, requestHelper, 
   $scope.testConfig = {
     network: websocketProtocol + '//test.stellar.org:9001',
     txt: 'stellar-stg.stellar.org',
-    domain: 'stg.stellar.org',
-    rootAddress: 'ganVp9o5emfzpwrG5QVUXqMv8AgLcdvySb'
+    domain: 'stg.stellar.org'
   };
 
   $scope.liveConfig = {
     network: websocketProtocol + '//live.stellar.org:9001',
     txt: 'stellar.stellar.org',
-    domain: 'stellar.org',
-    rootAddress: 'ganVp9o5emfzpwrG5QVUXqMv8AgLcdvySb'
+    domain: 'stellar.org'
   };
 
   var connection = null;
@@ -108,7 +106,7 @@ stellarExplorer.controller('appController', function($scope, $q, requestHelper, 
   });
 
   $scope.queryAddress = function(address) {
-    $scope.query = address || $scope.config.rootAddress;
+    $scope.query = address;
     $scope.updateAccountData();
   };
 
