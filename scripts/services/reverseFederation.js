@@ -3,7 +3,7 @@ stellarExplorer.factory('reverseFederation', ['$q', '$rootScope', '$http', 'stel
 
     var cache = {};
 
-    function check_address(address, txtAddress, defaultDomain) {
+    function check_address(address, defaultDomain) {
         var reverseFederationPromise = $q.defer();
 
         var domain = defaultDomain;
@@ -13,7 +13,7 @@ stellarExplorer.factory('reverseFederation', ['$q', '$rootScope', '$http', 'stel
           return reverseFederationPromise.promise;
         }
 
-        var txtPromise = $txt.get(txtAddress);
+        var txtPromise = $txt.get(domain);
 
         if (txtPromise) {
             if ("function" === typeof txtPromise.then) {

@@ -3,7 +3,7 @@ stellarExplorer.factory('federation', ['$q', '$rootScope', '$http', 'stellarTxt'
 
   var cache = {};
 
-  function check_email(email, txtAddress, defaultDomain) {
+  function check_email(email, defaultDomain) {
     if (email.indexOf('@') == -1) {
       email = email + '@' + defaultDomain;
     }
@@ -19,7 +19,7 @@ stellarExplorer.factory('federation', ['$q', '$rootScope', '$http', 'stellarTxt'
       return federationPromise.promise;
     }
 
-    var txtPromise = $txt.get(txtAddress);
+    var txtPromise = $txt.get(domain);
 
     if (txtPromise) {
       if ("function" === typeof txtPromise.then) {
