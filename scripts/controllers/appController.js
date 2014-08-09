@@ -117,9 +117,9 @@ stellarExplorer.controller('appController', function($scope, $q, requestHelper, 
         handleTransaction(transaction);
         break;
       default:
+        $scope.requestAccountData(true);
         break;
     }
-    $scope.requestAccountData(true);
   }
 
   function handleTransaction(transaction){
