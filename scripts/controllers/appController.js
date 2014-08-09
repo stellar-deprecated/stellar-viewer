@@ -140,6 +140,10 @@ stellarExplorer.controller('appController', function($scope, $q, requestHelper, 
     $scope.transactions.push(transaction);
     $scope.$digest(); // local $apply
   }
+  
+  function addToBalance (amount) {
+    $scope.balances['STR'] = $scope.balances['STR'] + amount;
+  }
 
   $scope.queryAddress = function(address) {
     $scope.query = address;
