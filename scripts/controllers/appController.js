@@ -29,6 +29,7 @@ stellarExplorer.controller('appController', function($scope, $q, requestHelper, 
 
     $scope.balances = {};
     $scope.balanceCurrencies = [];
+    $scope.transactions = [];
 
     connect();
   }
