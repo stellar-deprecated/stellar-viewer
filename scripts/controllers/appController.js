@@ -117,9 +117,9 @@ stellarExplorer.controller('appController', function($scope, $q, requestHelper, 
         handleTransaction(transaction);
         break;
       default:
+        $scope.requestAccountData(true);
         break;
     }
-    $scope.requestAccountData(true);
   }
 
   function handleTransaction(transaction){
@@ -130,8 +130,10 @@ stellarExplorer.controller('appController', function($scope, $q, requestHelper, 
     // We check if the account we are watching is part of the transaction
     switch($scope.address){
       case transaction.Account: // Current Query is the account of the transaction
+        addToBalance(-(+dustToStellars(transaction.Amount) + +dustToStellars(transaction.Fee)));
         break;
       case transaction.Destination: // Current Query is the destination of the transaction
+        addToBalance(+dustToStellars(transaction.Amount));
         break;
       default:
         // If the account we are watching isn't part of the transaction ignore it.
@@ -139,6 +141,10 @@ stellarExplorer.controller('appController', function($scope, $q, requestHelper, 
     }
     $scope.transactions.push(transaction);
     $scope.$digest(); // local $apply
+  }
+
+  function addToBalance (amount) {
+    $scope.balances['STR'] = $scope.balances['STR'] + amount;
   }
 
   $scope.queryAddress = function(address) {
