@@ -29,7 +29,6 @@ stellarExplorer.controller('appController', function($scope, $q, requestHelper, 
 
     $scope.balances = {};
     $scope.balanceCurrencies = [];
-    $scope.transactions = [];
 
     connect();
   }
@@ -83,7 +82,6 @@ stellarExplorer.controller('appController', function($scope, $q, requestHelper, 
   };
 
   function connect() {
-    $scope.transactions = [];
     $scope.loading = true;
 
     connection = new WebSocket($scope.config.network);
@@ -101,45 +99,9 @@ stellarExplorer.controller('appController', function($scope, $q, requestHelper, 
     };
   }
 
-  requestHelper.setDefaultCallback(function(message) {
-    handleMessage(message);
-  });
-
-
-  // TODO: extract message handling to service
-  // IDEA: Custom event emitter Service (Pub/Sub)
-  function handleMessage (message) {
-     switch(message.type){
-      case 'transaction':
-        // IDEA: Service.emit transaction event
-        var transaction = message.transaction;
-        // IDEA: Service.subscribe('transaction', handleTransaction);
-        handleTransaction(transaction);
-        break;
-      default:
-        break;
-    }
+  requestHelper.setDefaultCallback(function() {
     $scope.requestAccountData(true);
-  }
-
-  function handleTransaction(transaction){
-    // API BUG: Sometimes you get the transaction 2 times instead of just one.
-    // FIX: We check if there is a transaction exactly like this one.
-    if(_.find($scope.transactions, transaction)) return;
-
-    // We check if the account we are watching is part of the transaction
-    switch($scope.address){
-      case transaction.Account: // Current Query is the account of the transaction
-        break;
-      case transaction.Destination: // Current Query is the destination of the transaction
-        break;
-      default:
-        // If the account we are watching isn't part of the transaction ignore it.
-        return;
-    }
-    $scope.transactions.push(transaction);
-    $scope.$digest(); // local $apply
-  }
+  });
 
   $scope.queryAddress = function(address) {
     $scope.query = address;
