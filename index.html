@@ -1,9 +1,7 @@
 <!DOCTYPE html>
 <html ng-app="stellarExplorer">
 <head>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.js"></script>
-<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.0-beta.16/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0-beta.16/angular.min.js"></script>
 
 <script src="./scripts/vendor/base58.js"></script>
 
@@ -12,7 +10,6 @@
 <script src="./scripts/controllers/appController.js"></script>
 
 <script src="./scripts/directives/balance.js"></script>
-<script src="./scripts/directives/incomingTransactions.js"></script>
 <script src="./scripts/directives/highlightChanges.js"></script>
 <script src="./scripts/directives/offers.js"></script>
 <script src="./scripts/directives/trustLines.js"></script>
@@ -80,11 +77,6 @@
             <div class="border-wrapper">
                 <section class="explorer-row">
                     <offers></offers>
-                </section>
-            </div>
-            <div class="border-wrapper">
-                <section class="explorer-row">
-                    <incoming-transactions></incoming-transactions>
                 </section>
             </div>
         </div>
