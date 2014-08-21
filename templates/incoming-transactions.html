@@ -1,0 +1,26 @@
+<section class="column-title">
+    <h3>Incoming Transactions</h3>
+</section>
+<section class="column-content">
+    <h5 ng-show="!transactions.length" class="no-data">No incoming transactions</h5>
+    <table ng-show="transactions.length">
+          <tbody>
+              <tr>
+                  <th>Account</th>
+                  <th>Destination</th>
+                  <th>Type</th>
+                  <th>Amount</th>
+                  <th>Currency</th>
+                  <th>Fee</th>
+              </tr>
+              <tr ng-repeat="transaction in transactions track by $index">
+                  <td>{{ transaction.Account }}</td>
+                  <td>{{ transaction.Destination }}</td>
+                  <td>{{ transaction.TransactionType }}</td>
+                  <td>{{ transaction.Amount.value }}</td>
+                  <td>{{ transaction.Amount.currency }}</td>
+                  <td>{{ transaction.Fee }}</td>
+              </tr>
+        </tbody>
+    </table>
+</section>
