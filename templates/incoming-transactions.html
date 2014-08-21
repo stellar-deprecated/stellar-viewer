@@ -2,7 +2,7 @@
     <h3>Incoming Transactions</h3>
 </section>
 <section class="column-content">
-    <h5 ng-show="!transactions.length" class="no-data">No incoming transactions</h5>
+    <h5 ng-hide="transactions.length" class="no-data">No incoming transactions</h5>
     <table ng-show="transactions.length">
           <tbody>
               <tr>
@@ -14,10 +14,10 @@
                   <th>Fee</th>
               </tr>
               <tr ng-repeat="transaction in transactions track by $index">
-                  <td>{{ transaction.Account }}</td>
-                  <td>{{ transaction.Destination }}</td>
+                  <td class="query-address" ng-click="queryAddress(transaction.Account)" >{{ transaction.Account }}</td>
+                  <td class="query-address" ng-click="queryAddress(transaction.Destination)" >{{ transaction.Destination }}</td>
                   <td>{{ transaction.TransactionType }}</td>
-                  <td>{{ transaction.Amount.value }}</td>
+                  <td>{{ transaction.Amount.value | toFinancial }}</td>
                   <td>{{ transaction.Amount.currency }}</td>
                   <td>{{ transaction.Fee }}</td>
               </tr>

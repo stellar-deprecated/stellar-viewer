@@ -101,9 +101,7 @@ stellarExplorer.controller('appController', function($scope, $q, requestHelper, 
     };
   }
 
-  requestHelper.setDefaultCallback(function(message) {
-    handleMessage(message);
-  });
+  requestHelper.setDefaultCallback(handleMessage);
 
 
   // TODO: extract message handling to service
@@ -134,7 +132,7 @@ stellarExplorer.controller('appController', function($scope, $q, requestHelper, 
     if(!isNaN(transaction.Amount)){
       transaction.Amount = {
         currency: 'STR',
-        value: +dustToStellars(transaction.Amount) // Convert to stellars
+        value: dustToStellars(transaction.Amount) // Convert to stellars
       };
     }
 
@@ -189,6 +187,7 @@ stellarExplorer.controller('appController', function($scope, $q, requestHelper, 
       $scope.queryValid = false;
       return;
     }
+    $scope.transactions = []; // Clear incoming transactions
 
     $scope.emptyQuery = false; // Make result visible
 
