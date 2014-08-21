@@ -29,6 +29,7 @@ stellarExplorer.controller('appController', function($scope, $q, requestHelper, 
 
     $scope.balances = {};
     $scope.balanceCurrencies = [];
+    $scope.transactions = [];
 
     connect();
   }
@@ -82,6 +83,7 @@ stellarExplorer.controller('appController', function($scope, $q, requestHelper, 
   };
 
   function connect() {
+    $scope.transactions = [];
     $scope.loading = true;
 
     connection = new WebSocket($scope.config.network);
@@ -99,9 +101,59 @@ stellarExplorer.controller('appController', function($scope, $q, requestHelper, 
     };
   }
 
-  requestHelper.setDefaultCallback(function() {
-    $scope.requestAccountData(true);
-  });
+  requestHelper.setDefaultCallback(handleMessage);
+
+
+  // TODO: extract message handling to service
+  // IDEA: Custom event emitter Service (Pub/Sub)
+  function handleMessage (message) {
+    if(message.engine_result_code !== 0) return; // If the transaction did not succeed let's bounce!
+    
+    // Any modifications to the queried account ?
+    var affectedNode = _.find(message.meta.AffectedNodes, function (node) {
+      return node.ModifiedNode.FinalFields.Account == $scope.query;
+    });
+    _.extend($scope.account_info, affectedNode.ModifiedNode.FinalFields);
+
+    switch(message.type){
+      case 'transaction':
+        // IDEA: Service.emit transaction event
+        // IDEA: Service.subscribe('transaction', handleTransaction);
+        handleTransaction(message.transaction);
+        break;
+      default:
+        $scope.requestAccountData(true);
+        break;
+    }
+  }
+
+  function handleTransaction(transaction){
+    // If the transaction amount it's only a number they are microstellars.
+    if(!isNaN(transaction.Amount)){
+      transaction.Amount = {
+        currency: 'STR',
+        value: dustToStellars(transaction.Amount) // Convert to stellars
+      };
+    }
+
+    // API BUG: Sometimes you get the transaction 2 times instead of just one.
+    // FIX: We check if there is a transaction exactly like this one.
+    if(_.find($scope.transactions, transaction)) return;
+
+
+    // We check if the account we are watching is part of the transaction
+    switch($scope.address){
+      case transaction.Account: // Current Query is the account of the transaction
+        break;
+      case transaction.Destination: // Current Query is the destination of the transaction
+        break;
+      default:
+        // If the account we are watching isn't part of the transaction ignore it.
+        return;
+    }
+    $scope.transactions.push(transaction);
+    $scope.$apply(aggregateBalances);
+  }
 
   $scope.queryAddress = function(address) {
     $scope.query = address;
@@ -135,6 +187,7 @@ stellarExplorer.controller('appController', function($scope, $q, requestHelper, 
       $scope.queryValid = false;
       return;
     }
+    $scope.transactions = []; // Clear incoming transactions
 
     $scope.emptyQuery = false; // Make result visible
 
