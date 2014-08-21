@@ -110,6 +110,12 @@ stellarExplorer.controller('appController', function($scope, $q, requestHelper, 
   // IDEA: Custom event emitter Service (Pub/Sub)
   function handleMessage (message) {
     if(message.engine_result_code !== 0) return; // If the transaction did not succeed let's bounce!
+    
+    // Any modifications to the queried account ?
+    var affectedNode = _.find(message.meta.AffectedNodes, function (node) {
+      return node.ModifiedNode.FinalFields.Account == $scope.query;
+    });
+    _.extend($scope.account_info, affectedNode.ModifiedNode.FinalFields);
 
     switch(message.type){
       case 'transaction':
@@ -135,6 +141,7 @@ stellarExplorer.controller('appController', function($scope, $q, requestHelper, 
     // API BUG: Sometimes you get the transaction 2 times instead of just one.
     // FIX: We check if there is a transaction exactly like this one.
     if(_.find($scope.transactions, transaction)) return;
+
 
     // We check if the account we are watching is part of the transaction
     switch($scope.address){
@@ -267,20 +274,6 @@ stellarExplorer.controller('appController', function($scope, $q, requestHelper, 
 
     $scope.account_lines.forEach(function(line) {
       $scope.balances[line.currency] = ($scope.balances[line.currency] || 0) + (+line.balance);
-    });
-
-    $scope.transactions.forEach(function(transaction) {
-      var value = 0;
-      switch($scope.address){
-        case transaction.Account: // Current Query is the account of the transaction
-          value = - transaction.Amount.value;
-          $scope.balances['STR'] = ($scope.balances['STR'] || 0) - (+dustToStellars(transaction.Fee));
-          break;
-        case transaction.Destination: // Current Query is the destination of the transaction
-          value = transaction.Amount.value;
-          break;
-      }
-      $scope.balances[transaction.Amount.currency] = ($scope.balances[transaction.Amount.currency] || 0) + (+value);
     });
 
     $scope.balanceCurrencies = Object.getOwnPropertyNames($scope.balances);
