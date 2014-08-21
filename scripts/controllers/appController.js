@@ -263,7 +263,7 @@ stellarExplorer.controller('appController', function($scope, $q, requestHelper, 
 
     if (!$scope.account_info) return;
 
-    $scope.balances['STR'] = +dustToStellars($scope.account_info.Balance);
+    var dustBalance = $scope.account_info.Balance;
 
     $scope.account_lines.forEach(function(line) {
       $scope.balances[line.currency] = ($scope.balances[line.currency] || 0) + (+line.balance);
@@ -282,6 +282,8 @@ stellarExplorer.controller('appController', function($scope, $q, requestHelper, 
       }
       $scope.balances[transaction.Amount.currency] = ($scope.balances[transaction.Amount.currency] || 0) + (+value);
     });
+
+    $scope.balances['STR'] = +dustToStellars(dustBalance);
 
     $scope.balanceCurrencies = Object.getOwnPropertyNames($scope.balances);
   }
