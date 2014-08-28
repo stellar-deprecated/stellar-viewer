@@ -1,41 +1,45 @@
 <section class="column-title">
-    <h3>Trust lines</h3>
+    <h3>Trust Received</h3>
 </section>
 <section class="column-content">
-    <h4>Trust Received</h4>
     <h5 ng-show="emptyTrustReceived" class="no-data">No trust lines received</h5>
     <table ng-show="!emptyTrustReceived">
           <tbody>
               <tr>
                   <th>Currency</th>
                   <th>Balance</th>
+                  <th>Limit</th>
                   <th>Issuer</th>
-                  <th>Trust Limit</th>
               </tr>
               <tr ng-show="line.limit_peer > 0" ng-repeat="line in account_lines track by $index">
                   <td>{{ line.currency }}</td>
                   <td class="trust-balance" ng-class="balanceClass(line.balance)" highlight-changes="line.balance">{{ line.balance | toFinancial }}</td>
+                  <td>{{ line.limit_peer | toFinancial }}</td>
                   <td class="query-address" ng-click="queryAddress(line.account)">{{ line.account }}</td>
-                  <td>{{ line.limit_peer }}</td>
               </tr>
         </tbody>
     </table>
+</section>
 
-    <h4>Trust Set</h4>
+<section class="column-title">
+    <h3>Trust Given</h3>
+</section>
+<section class="column-content">
+
     <h5 ng-show="emptyTrustIssued" class="no-data">No trust lines set</h5>
     <table ng-show="!emptyTrustIssued">
           <tbody>
               <tr>
                   <th>Currency</th>
                   <th>Balance</th>
+                  <th>Limit</th>
                   <th>Issuer</th>
-                  <th>Trust Limit</th>
               </tr>
               <tr ng-show="line.limit > 0" ng-repeat="line in account_lines track by $index">
                   <td>{{ line.currency }}</td>
                   <td class="trust-balance" ng-class="balanceClass(line.balance)" highlight-changes="line.balance">{{ line.balance | toFinancial }}</td>
+                  <td>{{ line.limit | toFinancial }}</td>
                   <td class="query-address" ng-click="queryAddress(line.account)">{{ line.account }}</td>
-                  <td>{{ line.limit }}</td>
               </tr>
         </tbody>
     </table>
