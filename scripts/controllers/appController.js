@@ -182,6 +182,8 @@ stellarExplorer.controller('appController', function($scope, $q, requestHelper, 
       // HACK: Reset these references to prevent highlighing values when rendering a new account.
       $scope.account_info = null;
       $scope.account_lines = [];
+      $scope.trustGiven = [];
+      $scope.trustReceived = [];
       $scope.account_offers = [];
       $scope.balances = {};
       $scope.balanceCurrencies = [];
