@@ -26,9 +26,11 @@ stellarExplorer.controller('appController', function($scope, $q, requestHelper, 
     $scope.account_info = null;
     $scope.account_offers = [];
     $scope.account_lines = [];
+    $scope.trustGiven = [];
+    $scope.trustReceived = [];
 
-    $scope.emptyTrustReceived = true;
-    $scope.emptyTrustIssued = true;
+    // $scope.emptyTrustReceived = true;
+    // $scope.emptyTrustIssued = true;
 
     $scope.balances = {};
     $scope.balanceCurrencies = [];
@@ -212,8 +214,8 @@ stellarExplorer.controller('appController', function($scope, $q, requestHelper, 
       .then(function() {
         return requestHelper.getAccountLines($scope.address, function(lines) {
           for(i = 0; i < lines.length; i++) {
-            if(lines[i].limit > 0) $scope.emptyTrustIssued = false;
-            if(lines[i].limit_peer > 0) $scope.emptyTrustReceived = false;
+            if(lines[i].limit > 0) $scope.trustGiven.push(lines[i]);
+            if(lines[i].limit_peer > 0) $scope.trustReceived.push(lines[i]);
           }
           $scope.account_lines = lines;
         });

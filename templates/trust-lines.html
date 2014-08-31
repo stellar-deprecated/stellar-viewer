@@ -2,8 +2,8 @@
     <h3>Trust Received</h3>
 </section>
 <section class="column-content">
-    <h5 ng-show="emptyTrustReceived" class="no-data">No trust lines received</h5>
-    <table ng-show="!emptyTrustReceived">
+    <h5 ng-show="!trustReceived.length" class="no-data">No trust lines received</h5>
+    <table ng-show="trustReceived.length">
           <tbody>
               <tr>
                   <th>Currency</th>
@@ -11,7 +11,7 @@
                   <th>Limit</th>
                   <th>Issuer</th>
               </tr>
-              <tr ng-show="line.limit_peer > 0" ng-repeat="line in account_lines track by $index">
+              <tr ng-repeat="line in trustReceived track by $index">
                   <td>{{ line.currency }}</td>
                   <td class="trust-balance" ng-class="balanceClass(line.balance)" highlight-changes="line.balance">{{ line.balance | toFinancial }}</td>
                   <td>{{ line.limit_peer | toFinancial }}</td>
@@ -26,8 +26,8 @@
 </section>
 <section class="column-content">
 
-    <h5 ng-show="emptyTrustIssued" class="no-data">No trust lines set</h5>
-    <table ng-show="!emptyTrustIssued">
+    <h5 ng-show="!trustGiven.length" class="no-data">No trust lines given</h5>
+    <table ng-show="trustGiven.length">
           <tbody>
               <tr>
                   <th>Currency</th>
@@ -35,7 +35,7 @@
                   <th>Limit</th>
                   <th>Issuer</th>
               </tr>
-              <tr ng-show="line.limit > 0" ng-repeat="line in account_lines track by $index">
+              <tr ng-repeat="line in trustGiven track by $index">
                   <td>{{ line.currency }}</td>
                   <td class="trust-balance" ng-class="balanceClass(line.balance)" highlight-changes="line.balance">{{ line.balance | toFinancial }}</td>
                   <td>{{ line.limit | toFinancial }}</td>
