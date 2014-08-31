@@ -29,9 +29,6 @@ stellarExplorer.controller('appController', function($scope, $q, requestHelper, 
     $scope.trustGiven = [];
     $scope.trustReceived = [];
 
-    // $scope.emptyTrustReceived = true;
-    // $scope.emptyTrustIssued = true;
-
     $scope.balances = {};
     $scope.balanceCurrencies = [];
     $scope.transactions = [];
