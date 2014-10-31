@@ -53,5 +53,7 @@ an issue number.
 This document is inspired by:
 
 https://github.com/puppetlabs/puppet/blob/master/CONTRIBUTING.md 
-https://github.com/thoughtbot/factory_girl_rails/blob/master/CONTRIBUTING.md
+
+https://github.com/thoughtbot/factory_girl_rails/blob/master/CONTRIBUTING.md 
+
 https://github.com/rust-lang/rust/blob/master/CONTRIBUTING.md
