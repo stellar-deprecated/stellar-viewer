@@ -24,8 +24,10 @@ stellarExplorer.controller('appController', function($scope, $q, requestHelper, 
     $scope.address = '';
 
     $scope.account_info = null;
-    $scope.account_lines = [];
     $scope.account_offers = [];
+    $scope.account_lines = [];
+    $scope.trustGiven = [];
+    $scope.trustReceived = [];
 
     $scope.balances = {};
     $scope.balanceCurrencies = [];
@@ -177,6 +179,8 @@ stellarExplorer.controller('appController', function($scope, $q, requestHelper, 
       // HACK: Reset these references to prevent highlighing values when rendering a new account.
       $scope.account_info = null;
       $scope.account_lines = [];
+      $scope.trustGiven = [];
+      $scope.trustReceived = [];
       $scope.account_offers = [];
       $scope.balances = {};
       $scope.balanceCurrencies = [];
@@ -208,6 +212,10 @@ stellarExplorer.controller('appController', function($scope, $q, requestHelper, 
     })
       .then(function() {
         return requestHelper.getAccountLines($scope.address, function(lines) {
+          for(i = 0; i < lines.length; i++) {
+            if(lines[i].limit > 0) $scope.trustGiven.push(lines[i]);
+            if(lines[i].limit_peer > 0) $scope.trustReceived.push(lines[i]);
+          }
           $scope.account_lines = lines;
         });
       })
