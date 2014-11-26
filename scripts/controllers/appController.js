@@ -110,11 +110,24 @@ stellarExplorer.controller('appController', function($scope, $q, requestHelper, 
   // IDEA: Custom event emitter Service (Pub/Sub)
   function handleMessage (message) {
     if(message.engine_result_code !== 0) return; // If the transaction did not succeed let's bounce!
-    
-    // Any modifications to the queried account ?
+
+    // Message contains one or more transactions in an array
+    // Find a transaction transaction belongs to the current user
     var affectedNode = _.find(message.meta.AffectedNodes, function (node) {
-      return node.ModifiedNode.FinalFields.Account == $scope.query;
+      // Check if the the current user is the destination of this transaction
+      if (typeof node.ModifiedNode !== 'undefined' &&
+          typeof node.ModifiedNode.FinalFields !== 'undefined' &&
+          typeof node.ModifiedNode.FinalFields.Account !== 'undefined') {
+        return node.ModifiedNode.FinalFields.Account == $scope.address;
+      }
+      return false;
     });
+
+    if (typeof affectedNode === 'undefined') {
+      // No relevant transactions to current user
+      return;
+    }
+
     _.extend($scope.account_info, affectedNode.ModifiedNode.FinalFields);
 
     switch(message.type){
