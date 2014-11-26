@@ -89,8 +89,6 @@ section.column-content {
   display: block;
   margin-right: 2.35765%;
   width: 65.88078%;
-}
-section.column-content:last-child {
   margin-right: 0;
 }
 
