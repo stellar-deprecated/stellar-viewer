@@ -9,7 +9,7 @@
                   <th>Currency</th>
                   <th>Balance</th>
                   <th>Limit</th>
-                  <th>Issuer</th>
+                  <th>From Account</th>
               </tr>
               <tr ng-repeat="line in trustReceived track by $index">
                   <td>{{ line.currency }}</td>
@@ -33,7 +33,7 @@
                   <th>Currency</th>
                   <th>Balance</th>
                   <th>Limit</th>
-                  <th>Issuer</th>
+                  <th>To Issuer</th>
               </tr>
               <tr ng-repeat="line in trustGiven track by $index">
                   <td>{{ line.currency }}</td>
