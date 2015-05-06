@@ -23,7 +23,7 @@ ask contributors to follow so that we can merge your changes quickly.
 
 ## Submitting Changes
 
-* <a href="https://www.clahub.com/agreements/stellar/stellar-viewer">Sign the Contributor License Agreement</a>.
+* Sign the [Contributor License Agreement](https://docs.google.com/forms/d/1g7EF6PERciwn7zfmfke5Sir2n10yddGGSXyZsq98tVY/viewform?usp=send_form).
 * Push your changes to a topic branch in your fork of the repository.
 * Submit a pull request to the [stellar-viewer](https://github.com/stellar/stellar-viewer) repository in the Stellar organization.
  * Include a descriptive commit message
@@ -44,7 +44,7 @@ an issue number.
 # Additional Resources
 
 * [Bug tracker (Github)](https://github.com/stellar/stellar-viewer/issues)
-* <a href="https://www.clahub.com/agreements/stellar/stellar-viewer">Contributor License Agreement</a>
+* [Contributor License Agreement](https://docs.google.com/forms/d/1g7EF6PERciwn7zfmfke5Sir2n10yddGGSXyZsq98tVY/viewform?usp=send_form)
 * [Explore the API](https://www.stellar.org/api/)
 * [Readme for stellar-viewer](https://github.com/stellar/stellar-viewer/blob/master/README.md)
 * #stellar-dev IRC channel on freenode.org
